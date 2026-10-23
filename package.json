@@ -1,0 +1,25 @@
+{
+  "name": "xestus-omnitools",
+  "version": "1.0.0",
+  "description": "High-performance, 100% private, client-side daily utility tool suite developed by Xestus.",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "npx -y serve . -p 3000",
+    "dev": "npx -y serve . -p 3000"
+  },
+  "keywords": [
+    "xestus",
+    "online tools",
+    "image compressor",
+    "pdf merger",
+    "qr code generator",
+    "json formatter",
+    "password generator",
+    "emi calculator",
+    "privacy-first",
+    "client-side utility"
+  ],
+  "author": "Xestus Technologies",
+  "license": "MIT"
+}
