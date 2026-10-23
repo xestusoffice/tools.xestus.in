@@ -1748,4 +1748,259 @@ html, body {
   opacity: 1;
 }
 
+/* ==========================================================================
+   NEXT-LEVEL SEO, MONETIZATION & VIRAL GROWTH MODULES
+   ========================================================================== */
+
+/* Mobile Table & Card Responsiveness */
+.comparison-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comparison-table {
+  min-width: 620px;
+}
+
+/* Google AdSense Ready Placement Slots */
+.adsense-slot-container {
+  margin: 3rem auto;
+  max-width: 970px;
+  min-height: 100px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.ad-badge-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.ad-placeholder-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* FAQ Accordion Section (AdSense & SEO Rich Snippets) */
+.faq-section {
+  padding: 5rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: var(--border-color-hover);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.35rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  gap: 1rem;
+}
+
+.faq-icon {
+  font-size: 1.25rem;
+  color: var(--accent-primary);
+  transition: transform var(--transition-normal);
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+  padding: 0 1.75rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 0.95rem;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 350px;
+  padding-bottom: 1.5rem;
+}
+
+/* Viral Social Share Bar (WhatsApp, Twitter, LinkedIn, Copy) */
+.viral-share-section {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 780px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.viral-share-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.share-btn-whatsapp {
+  background: #25D366;
+}
+
+.share-btn-whatsapp:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.share-btn-x {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.share-btn-x:hover {
+  background: #1a1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+}
+
+.share-btn-linkedin {
+  background: #0077b5;
+}
+
+.share-btn-linkedin:hover {
+  background: #006097;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 119, 181, 0.4);
+}
+
+.share-btn-copy {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.share-btn-copy:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsiveness Fine-Tuning (< 640px) */
+@media (max-width: 640px) {
+  .hero-instant-dock {
+    padding: 1.15rem;
+    margin: 1.5rem 0.5rem;
+  }
+
+  .dock-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .dock-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dock-tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.78rem;
+  }
+
+  .dock-quick-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-live-shield {
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .faq-question {
+    padding: 1.15rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .faq-answer {
+    padding: 0 1.25rem;
+  }
+
+  .viral-share-btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .share-btn {
+    justify-content: center;
+  }
+
+  .header-actions .badge-xestus {
+    display: none;
+  }
+}
+
+
 

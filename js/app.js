@@ -195,6 +195,7 @@ class XestusAppController {
     this.initBackToTop();
     this.initPWA();
     this.initFeedbackSystem();
+    this.initFaqAndSharing();
   }
 
   // Favorites System
@@ -1022,6 +1023,70 @@ class XestusAppController {
           .catch((err) => {
             console.warn('[Xestus] Service Worker registration info:', err);
           });
+      });
+    }
+  }
+
+  // FAQ Accordion & Viral Social Sharing
+  initFaqAndSharing() {
+    // FAQ Accordion toggling
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const questionBtn = item.querySelector('.faq-question');
+      if (questionBtn) {
+        questionBtn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          faqItems.forEach(i => i.classList.remove('open'));
+          if (!isOpen) {
+            item.classList.add('open');
+          }
+          soundFx.playClick();
+        });
+      }
+    });
+
+    // Viral Share actions
+    const shareUrl = 'https://tools.xestus.in';
+    const shareTitle = 'Xestus OmniTools - 100% Free, Private, In-Browser Web Utilities (No Uploads)';
+
+    const btnWa = document.getElementById('share-btn-wa');
+    const btnTw = document.getElementById('share-btn-tw');
+    const btnLi = document.getElementById('share-btn-li');
+    const btnCp = document.getElementById('share-btn-cp');
+
+    if (btnWa) {
+      btnWa.addEventListener('click', () => {
+        const text = encodeURIComponent(`${shareTitle} - Check this out: ${shareUrl}`);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+      });
+    }
+
+    if (btnTw) {
+      btnTw.addEventListener('click', () => {
+        const text = encodeURIComponent(shareTitle);
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(shareUrl)}`, '_blank');
+      });
+    }
+
+    if (btnLi) {
+      btnLi.addEventListener('click', () => {
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
+      });
+    }
+
+    if (btnCp) {
+      btnCp.addEventListener('click', async (e) => {
+        try {
+          if (navigator.clipboard) {
+            await navigator.clipboard.writeText(shareUrl);
+            this.showToast('Platform link copied to clipboard!', 'success');
+            triggerConfetti(e.clientX, e.clientY);
+          } else {
+            prompt('Copy website link:', shareUrl);
+          }
+        } catch {
+          prompt('Copy website link:', shareUrl);
+        }
       });
     }
   }
