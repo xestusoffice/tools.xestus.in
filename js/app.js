@@ -260,11 +260,38 @@ class XestusAppController {
       'pdf-page-numbers': 'pagenum'
     };
 
+    const toolAliases = {
+      'password-generator': 'password-gen',
+      'password': 'password-gen',
+      'qr-code': 'qr-generator',
+      'qr-code-generator': 'qr-generator',
+      'qrcode': 'qr-generator',
+      'json-formatter': 'json-tools',
+      'json-validator': 'json-tools',
+      'json': 'json-tools',
+      'image-resizer': 'image-compressor',
+      'compress-image': 'image-compressor',
+      'compressor': 'image-compressor',
+      'emi-calculator': 'finance-calc',
+      'loan-calculator': 'finance-calc',
+      'emi': 'finance-calc',
+      'age-calc': 'age-calculator',
+      'age': 'age-calculator',
+      'text-diff': 'diff-checker',
+      'diff': 'diff-checker',
+      'markdown': 'markdown-studio',
+      'signature': 'signature-pad',
+      'esign': 'signature-pad',
+      'exif': 'exif-scrubber'
+    };
+
     let hash = rawHash;
     let targetSubmode = null;
     if (pdfAliases[rawHash]) {
       hash = 'pdf-tools';
       targetSubmode = pdfAliases[rawHash];
+    } else if (toolAliases[rawHash]) {
+      hash = toolAliases[rawHash];
     }
 
     if (!hash || hash === '' || hash === 'home') {
@@ -442,6 +469,17 @@ class XestusAppController {
 
     if (cmdInput) {
       cmdInput.addEventListener('input', (e) => renderCmdResults(e.target.value));
+      cmdInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const firstItem = cmdResults ? cmdResults.querySelector('.cmd-item') : null;
+          if (firstItem && firstItem.dataset.id) {
+            const id = firstItem.dataset.id;
+            closeCmdPalette();
+            this.navigateToTool(id);
+          }
+        }
+      });
     }
 
     // Main section search input

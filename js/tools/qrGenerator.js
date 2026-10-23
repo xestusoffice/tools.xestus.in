@@ -62,7 +62,7 @@ export function initQrGenerator() {
   function getQrPayload() {
     switch (currentType) {
       case 'url':
-        return urlInput.value.trim() || 'https://xestus.com';
+        return urlInput.value.trim() || 'https://xestus.in';
       case 'text':
         return textInput.value.trim() || 'Xestus OmniTools - Empowering Every Day';
       case 'wifi': {
@@ -79,7 +79,7 @@ export function initQrGenerator() {
         return `BEGIN:VCARD\nVERSION:3.0\nN:${name}\nFN:${name}\nORG:${org}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
       }
       default:
-        return 'https://xestus.com';
+        return 'https://xestus.in';
     }
   }
 
