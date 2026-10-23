@@ -18,6 +18,8 @@ import { initAgeCalculator } from './tools/ageCalculator.js';
 import { initDiffChecker } from './tools/diffChecker.js';
 import { initExifScrubber } from './tools/exifScrubber.js';
 import { initSignaturePad } from './tools/signaturePad.js';
+import { soundFx } from './soundEffects.js';
+import { triggerConfetti } from './confetti.js';
 
 // Central Tools Registry
 export const TOOLS = [
@@ -183,10 +185,12 @@ class XestusAppController {
 
     this.initSecurity();
     this.initTheme();
+    this.initSoundToggle();
     this.initGlobalEvents();
     this.initRouter();
     this.initTools();
     this.renderToolsGrid();
+    this.initHeroInstantDock();
     this.initCookieBanner();
     this.initBackToTop();
     this.initPWA();
@@ -234,6 +238,30 @@ class XestusAppController {
         this.showToast(`Switched to ${this.theme} mode`, 'info');
       });
     }
+  }
+
+  // Sound Engine & Micro-interactions
+  initSoundToggle() {
+    const soundBtn = document.getElementById('sound-toggle');
+    if (!soundBtn) return;
+    const updateIcon = () => {
+      soundBtn.textContent = soundFx.enabled ? '🔊' : '🔇';
+      soundBtn.title = soundFx.enabled ? 'Sound Effects Active (Click to Mute)' : 'Sound Effects Muted (Click to Unmute)';
+    };
+    updateIcon();
+    soundBtn.addEventListener('click', () => {
+      const active = soundFx.toggle();
+      updateIcon();
+      this.showToast(active ? 'Sound effects enabled' : 'Sound effects muted', 'info');
+    });
+
+    // Global audio feedback for buttons and interactive elements
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('button, .quick-tool-link, .nav-link-btn, .category-tab-btn, .dock-tab-btn, .fav-btn');
+      if (btn && btn.id !== 'sound-toggle') {
+        soundFx.playClick();
+      }
+    });
   }
 
   // Router & View Management
@@ -393,6 +421,20 @@ class XestusAppController {
         </article>
       `;
     }).join('');
+
+    // Dynamic Spotlight Cursor Tracking
+    gridEl.querySelectorAll('.tool-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+      card.addEventListener('click', () => {
+        soundFx.playPop();
+      });
+    });
   }
 
   // Global Events & Modals
@@ -748,6 +790,12 @@ class XestusAppController {
     const container = document.getElementById('toast-container');
     if (!container) return;
 
+    if (type === 'success') {
+      soundFx.playSuccess();
+    } else {
+      soundFx.playClick();
+    }
+
     const toast = document.createElement('div');
     toast.className = 'toast';
 
@@ -767,15 +815,125 @@ class XestusAppController {
     }, 3200);
   }
 
-  // Confetti Animation for user wins
-  triggerConfetti() {
-    if (typeof confetti === 'function') {
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.7 }
+  // Interactive Hero Instant Speed Dock
+  initHeroInstantDock() {
+    const dockTabs = document.querySelectorAll('.dock-tab-btn');
+    const dockPanels = document.querySelectorAll('.dock-panel');
+    const passInput = document.getElementById('dock-pass-input');
+    const passRollBtn = document.getElementById('dock-pass-roll-btn');
+    const passCopyBtn = document.getElementById('dock-pass-copy-btn');
+
+    const qrInput = document.getElementById('dock-qr-input');
+    const qrGenBtn = document.getElementById('dock-qr-gen-btn');
+    const qrBox = document.getElementById('dock-qr-preview-box');
+
+    const textInput = document.getElementById('dock-text-input');
+    const wordsEl = document.getElementById('dock-text-words');
+    const charsEl = document.getElementById('dock-text-chars');
+    const readEl = document.getElementById('dock-text-time');
+
+    // Tab switching
+    dockTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        dockTabs.forEach(t => t.classList.remove('active'));
+        dockPanels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.dataset.dock;
+        const panel = document.getElementById(`dock-panel-${target}`);
+        if (panel) panel.classList.add('active');
+        soundFx.playClick();
+      });
+    });
+
+    // Helper: generate quick secure password
+    const rollPassword = () => {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*';
+      const array = new Uint32Array(16);
+      window.crypto.getRandomValues(array);
+      let pass = '';
+      for (let i = 0; i < 16; i++) {
+        pass += chars[array[i] % chars.length];
+      }
+      if (passInput) passInput.value = pass;
+    };
+
+    if (passRollBtn) {
+      passRollBtn.addEventListener('click', () => {
+        rollPassword();
+        soundFx.playPop();
       });
     }
+
+    if (passCopyBtn && passInput) {
+      passCopyBtn.addEventListener('click', (e) => {
+        if (!passInput.value) return;
+        navigator.clipboard.writeText(passInput.value);
+        this.showToast('Instant password copied!', 'success');
+        triggerConfetti(e.clientX, e.clientY);
+      });
+    }
+
+    // Initialize instant password immediately
+    rollPassword();
+
+    // Helper: quick QR
+    const renderMiniQr = () => {
+      if (!qrBox) return;
+      const text = qrInput ? qrInput.value.trim() : 'https://xestus.in';
+      if (typeof QRCode !== 'undefined') {
+        qrBox.innerHTML = '';
+        new QRCode(qrBox, {
+          text: text || 'https://xestus.in',
+          width: 40,
+          height: 40,
+          colorDark: '#090d16',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    };
+
+    if (qrGenBtn) {
+      qrGenBtn.addEventListener('click', (e) => {
+        renderMiniQr();
+        this.showToast('Quick QR Code generated!', 'success');
+        triggerConfetti(e.clientX, e.clientY);
+      });
+    }
+
+    if (qrInput) {
+      qrInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') renderMiniQr();
+      });
+    }
+
+    // Try rendering mini QR once QRCode library loads
+    const checkQr = setInterval(() => {
+      if (typeof QRCode !== 'undefined') {
+        renderMiniQr();
+        clearInterval(checkQr);
+      }
+    }, 300);
+
+    // Instant Text counter
+    if (textInput && wordsEl && charsEl && readEl) {
+      const updateCounts = () => {
+        const val = textInput.value;
+        const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+        const chars = val.length;
+        const readTime = Math.max(1, Math.ceil(words / 200));
+        wordsEl.textContent = words;
+        charsEl.textContent = chars;
+        readEl.textContent = `${readTime}s`;
+      };
+      textInput.addEventListener('input', updateCounts);
+      updateCounts();
+    }
+  }
+
+  // Confetti Animation for user wins
+  triggerConfetti(x, y) {
+    triggerConfetti(x, y);
   }
 
   // Initialize tool sub-modules
@@ -825,8 +983,36 @@ class XestusAppController {
     });
   }
 
-  // Progressive Web App Service Worker Registration
+  // Progressive Web App Service Worker & Install Prompt
   initPWA() {
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('btn-pwa-install');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+      }
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async (e) => {
+        soundFx.playClick();
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            this.showToast('Xestus OmniTools App installed successfully!', 'success');
+            triggerConfetti(e.clientX, e.clientY);
+          }
+          deferredPrompt = null;
+        } else {
+          this.showToast('To install: click the Install icon in your browser URL bar or Add to Home Screen on mobile.', 'info');
+        }
+      });
+    }
+
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')

@@ -3,7 +3,7 @@
  * Ensures full offline functionality for in-browser client-side execution
  */
 
-const CACHE_NAME = 'xestus-omnitools-v1';
+const CACHE_NAME = 'xestus-omnitools-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -15,6 +15,8 @@ const ASSETS_TO_CACHE = [
   './css/style.css',
   './css/components.css',
   './js/app.js',
+  './js/soundEffects.js',
+  './js/confetti.js',
   './js/tools/imageCompressor.js',
   './js/tools/qrGenerator.js',
   './js/tools/pdfTools.js',

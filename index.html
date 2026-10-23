@@ -145,6 +145,12 @@
           <span class="feedback-star-icon">⭐</span>
           <span class="feedback-btn-text">Feedback</span>
         </button>
+        <button class="pwa-install-header-btn" id="btn-pwa-install" title="Install Xestus OmniTools as Desktop/Mobile App">
+          ⚡ Install App
+        </button>
+        <button class="sound-toggle-btn" id="sound-toggle" title="Toggle Sound Feedback (Mute/Unmute)" aria-label="Toggle Sound">
+          🔊
+        </button>
         <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">
           ☀️
         </button>
@@ -195,6 +201,72 @@
             </div>
           </div>
 
+          <!-- Live Privacy Shield Ticker -->
+          <div style="text-align: center;">
+            <div class="hero-live-shield">
+              <span><span class="shield-pulse-dot"></span> 100% In-Browser Sandbox</span>
+              <span>🔒 0 KB Uploaded to Cloud</span>
+              <span>⚡ Hardware Acceleration Active</span>
+            </div>
+          </div>
+
+          <!-- Hero Instant Interactive Speed Dock (Playground) -->
+          <div class="hero-instant-dock" id="hero-instant-dock">
+            <div class="dock-header">
+              <div class="dock-title">
+                <span>⚡ Instant Playground</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">(Zero clicks required)</span>
+              </div>
+              <div class="dock-tabs">
+                <button class="dock-tab-btn active" data-dock="pass">🔐 Password</button>
+                <button class="dock-tab-btn" data-dock="qr">📱 QR Code</button>
+                <button class="dock-tab-btn" data-dock="text">📝 Word Counter</button>
+              </div>
+            </div>
+
+            <!-- Panel 1: Instant Password -->
+            <div class="dock-panel active" id="dock-panel-pass">
+              <div class="dock-quick-row">
+                <input type="text" id="dock-pass-input" class="dock-quick-input" readonly value="Loading...">
+                <button class="btn-primary" id="dock-pass-roll-btn" style="padding: 0.75rem 1.25rem;">
+                  🎲 Roll
+                </button>
+                <button class="btn-secondary" id="dock-pass-copy-btn" style="padding: 0.75rem 1.25rem;">
+                  📋 Copy
+                </button>
+                <a href="#password-gen" class="btn-secondary" style="padding: 0.75rem 1rem; font-size: 0.85rem;" title="Full Studio">
+                  Advanced &rarr;
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel 2: Instant QR -->
+            <div class="dock-panel" id="dock-panel-qr">
+              <div class="dock-quick-row">
+                <input type="text" id="dock-qr-input" class="dock-quick-input" placeholder="Enter URL or text (e.g. https://xestus.in)..." value="https://xestus.in">
+                <button class="btn-primary" id="dock-qr-gen-btn" style="padding: 0.75rem 1.25rem;">
+                  ⚡ Quick QR
+                </button>
+                <div id="dock-qr-preview-box" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: white; border-radius: 8px; padding: 2px;"></div>
+                <a href="#qr-generator" class="btn-secondary" style="padding: 0.75rem 1rem; font-size: 0.85rem;">
+                  Full Studio &rarr;
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel 3: Instant Text Counter -->
+            <div class="dock-panel" id="dock-panel-text">
+              <div class="dock-quick-row">
+                <input type="text" id="dock-text-input" class="dock-quick-input" placeholder="Type or paste any sentence here..." value="Xestus OmniTools is 100% private and blazingly fast!">
+                <div style="font-size: 0.88rem; color: var(--text-secondary); display: flex; gap: 1rem; padding: 0.5rem 0.75rem; background: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                  <span>Words: <strong id="dock-text-words" style="color: var(--text-primary);">8</strong></span>
+                  <span>Chars: <strong id="dock-text-chars" style="color: var(--text-primary);">55</strong></span>
+                  <span>Read: <strong id="dock-text-time" style="color: var(--accent-primary);">1s</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Quick Access Popular Tools Strip -->
           <div class="quick-tools-strip" style="justify-content: center; margin-top: 1.5rem;">
             <span>⚡ Quick Access:</span>
@@ -236,6 +308,90 @@
         <!-- The Tools Grid (Populated dynamically by app.js) -->
         <div class="tools-grid" id="tools-grid"></div>
 
+      </section>
+
+      <!-- =====================================================================
+           THE UNFAIR ADVANTAGE: WHY SWITCH TO XESTUS OMNITOOLS
+           ===================================================================== -->
+      <section class="comparison-section">
+        <div class="comparison-header">
+          <span class="badge-xestus" style="margin-bottom: 0.75rem;">The Unfair Advantage</span>
+          <h2 style="font-size: clamp(2rem, 3.5vw, 2.6rem); margin-bottom: 0.75rem;">
+            Why People Are Ditching Other Tools for <span class="gradient-text">Xestus</span>
+          </h2>
+          <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto; font-size: 1.05rem;">
+            Stop uploading your private tax PDFs, passwords, and photos to unknown third-party cloud servers with annoying paywalls.
+          </p>
+        </div>
+
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Feature Comparison</th>
+                <th class="highlight-col" style="width: 38%;">⭐ Xestus OmniTools</th>
+                <th style="width: 30%;">❌ Traditional Sites (iLovePDF, TinyPNG, etc.)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Data Privacy &amp; Security</strong></td>
+                <td class="highlight-col">
+                  <span class="check-green">✓ 100% In-Browser Sandbox</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Files never leave your device. Zero cloud uploads.</div>
+                </td>
+                <td>
+                  <span class="cross-red">✗ Uploaded to Remote Servers</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Stored in cloud databases with retention risks.</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Usage &amp; File Limits</strong></td>
+                <td class="highlight-col">
+                  <span class="check-green">✓ Unlimited Free Forever</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">No caps on conversions or PDF page counts.</div>
+                </td>
+                <td>
+                  <span class="cross-red">✗ Paywalls &amp; Timers</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">"2 free files/hour" or forced $10/mo subscription.</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Processing Speed</strong></td>
+                <td class="highlight-col">
+                  <span class="check-green">✓ Instant Hardware Speed</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Native WebAssembly &amp; GPU with 0s upload wait.</div>
+                </td>
+                <td>
+                  <span class="cross-red">✗ Slow Upload &amp; Download</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Long buffering time for large files.</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Offline &amp; PWA Support</strong></td>
+                <td class="highlight-col">
+                  <span class="check-green">✓ Full Offline PWA App</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Works without internet on flights or trains.</div>
+                </td>
+                <td>
+                  <span class="cross-red">✗ Fails Offline</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Requires active internet connection.</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>User Experience</strong></td>
+                <td class="highlight-col">
+                  <span class="check-green">✓ Clean, AdSense Compliant, Zero Spam</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">No deceptive download buttons or popup traps.</div>
+                </td>
+                <td>
+                  <span class="cross-red">✗ Spam Popups &amp; Fake Buttons</span>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Crowded with misleading ads.</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
     </div>

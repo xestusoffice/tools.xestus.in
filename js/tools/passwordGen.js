@@ -79,10 +79,13 @@ export function initPasswordGen() {
   if (refreshBtn) refreshBtn.addEventListener('click', generate);
 
   if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
+    copyBtn.addEventListener('click', (e) => {
       if (!outputInput.value) return;
       navigator.clipboard.writeText(outputInput.value);
       window.XestusApp.showToast('Password copied to clipboard!', 'success');
+      if (window.XestusApp && window.XestusApp.triggerConfetti) {
+        window.XestusApp.triggerConfetti(e.clientX, e.clientY);
+      }
     });
   }
 
