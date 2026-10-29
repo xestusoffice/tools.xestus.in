@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage & Core Tools Suite -->
   <url>
     <loc>https://tools.xestus.in/</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,7 +11,7 @@
   <!-- Official About Page -->
   <url>
     <loc>https://tools.xestus.in/about.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -21,7 +19,7 @@
   <!-- Contact & Support -->
   <url>
     <loc>https://tools.xestus.in/contact.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -29,7 +27,7 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://tools.xestus.in/privacy.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -37,7 +35,7 @@
   <!-- Terms of Service -->
   <url>
     <loc>https://tools.xestus.in/terms.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
